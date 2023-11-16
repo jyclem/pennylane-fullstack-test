@@ -98,6 +98,13 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
+    faker (3.2.1)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -242,6 +249,8 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -280,6 +289,8 @@ DEPENDENCIES
   cssbundling-rails
   data_migrate
   debug
+  factory_bot_rails
+  faker
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
@@ -290,6 +301,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rspec
+  shoulda-matchers (~> 5.0)
   sprockets-rails
   stimulus-rails
   turbo-rails
