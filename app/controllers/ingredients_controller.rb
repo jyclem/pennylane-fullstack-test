@@ -8,8 +8,8 @@ class IngredientsController < ApplicationController
     page = index_params[:page].to_i
 
     result = if index_params[:name_containing] && page.positive?
-               set_pagination_metadata(scope.count, index_params[:page], 10)
-               scope.paginate(page, 10)
+               set_pagination_metadata(scope.count, index_params[:page], 50)
+               scope.paginate(page, 50)
              else
                [] # so far, if a param is missing, we don't return any information to the user
              end

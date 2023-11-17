@@ -8,7 +8,7 @@ class RecipesController < ApplicationController
     page = index_params[:page].to_i
 
     result = if index_params[:ingredient_ids] && page.positive?
-               set_pagination_metadata(scope.count, index_params[:page], ApplicationRecord::DEFAULT_NB_BY_PAGE)
+               set_pagination_metadata(scope.count, index_params[:page])
                scope.paginate(page)
              else
                [] # so far, if a param is missing, we don't return any information to the user
@@ -25,6 +25,6 @@ class RecipesController < ApplicationController
   end
 
   def scope
-    @scope ||= Recipe.with_at_most_ingredient_ids(index_params[:ingredient_ids])
+    @scope ||= Recipe.with_at_most_ingredient_ids(index_params[:ingredient_ids]).order(ratings: :desc)
   end
 end

@@ -73,18 +73,20 @@ module Imports
       raise e
     end
 
-    def format_ingredients(recipe)
+    def format_ingredients(recipe) # rubocop:disable Metrics/MethodLength
       recipe['ingredients'].map do |ingredient|
-        ingredient.gsub(/\d+[,. s]?d*/, '') # we remove all digits
+        ingredient.downcase
+                  .gsub(/\d+[,. ]?d*/, '') # we remove all digits (including those separated by . and ,)
+                  .gsub(/[\*®]/, '') # we remove all special characters
+                  .gsub(/[⅓½⅔¼¾⅛⅜⅝⅞]|/, '') # we remove all fractions
                   # we remove all kitchenware
                   .gsub(/cup(s)?|teaspoon(s)?|package(s)?|tablespoon(s)?|can(s)?( or bottle)?|packed|ounce(s)?/, '')
                   # we remove food alteration
                   .gsub(/square(s)?|ground|minced|warm|chopped|water|clove(s)?|refrigerated|scalded/, '')
                   .gsub(/\(.*\)/, '') # we remove everything in parenthesis
-                  .gsub(/[⅓½⅔¼¾⅛⅝]|/, '') # we remove all fractions
                   .gsub(/,.+/, '') # we remove everything after a comma
-                  .singularize # we keep only "singular" ingredient to avoid duplicates
-                  .strip # we remove leading and trailing whitespace
+                  .gsub(/^\. ?/, '') # we remove a leading "." or ". "
+                  .singularize.strip # we keep "singular" ingredient and remove leading and trailing whitespace
       end.compact_blank
     end
 

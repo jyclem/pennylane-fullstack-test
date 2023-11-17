@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "private": "true",
+  "name": "pennylane-fullstack-test",
+  "private": true,
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
@@ -15,9 +15,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.19.0",
+    "react-select": "^5.8.0",
     "sass": "^1.69.5"
   },
   "scripts": {
+    "lint": "yarn run eslint --ext .js --ext .jsx --ext ts --ext tsx app/javascript",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
     "build:css:compile": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
     "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css",
@@ -26,5 +28,22 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^20.9.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/react-select": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.1.0",
+    "typescript": "^5.2.2"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jyclem/pennylane-fullstack-test.git",
+  "author": "Jean-Yves Clemont <jean_yves_m@hotmail.com>",
+  "license": "MIT"
 }

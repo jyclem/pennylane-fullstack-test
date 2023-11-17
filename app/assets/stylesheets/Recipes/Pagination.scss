@@ -1,0 +1,17 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  span {
+    margin: 10px;
+    color: gray;
+
+    &.selected {
+      color: blue;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
