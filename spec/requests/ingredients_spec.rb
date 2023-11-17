@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 RSpec.describe '/ingredients' do
   describe 'GET /index' do
     let!(:ingredient1) { create(:ingredient, name: 'foo bar') }
@@ -62,4 +61,3 @@ RSpec.describe '/ingredients' do
     end
   end
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

@@ -14,6 +14,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_092705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_ingredients_on_name", unique: true
@@ -22,6 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_092705) do
   create_table "ingredients_recipes", id: false, force: :cascade do |t|
     t.bigint "ingredient_id"
     t.bigint "recipe_id"
+    t.index ["ingredient_id", "recipe_id"], name: "index_ingredients_recipes_on_ingredient_id_and_recipe_id", unique: true
     t.index ["ingredient_id"], name: "index_ingredients_recipes_on_ingredient_id"
     t.index ["recipe_id"], name: "index_ingredients_recipes_on_recipe_id"
   end
