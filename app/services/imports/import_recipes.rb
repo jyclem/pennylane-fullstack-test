@@ -44,12 +44,16 @@ module Imports
     def process_recipe(recipe)
       return if recipe['title'].blank?
 
+      # we put all the data we need in "recipes_to_insert" for bulk insert
       recipes_to_insert << recipe.slice('title', 'prep_time', 'cook_time', 'ratings', 'image')
 
+      # we format all ingredients to remove useless information so that we can regroup them
       ingredients_formatted = format_ingredients(recipe)
 
+      # we add all the name of the ingredients in "ingredients_to_insert" for bulk insert
       ingredients_to_insert.concat(ingredients_formatted.map { { name: _1 } })
 
+      # we store ingredients_formatted in the hash recipes_to_ingredients
       recipes_to_ingredients[recipe['title']] = ingredients_formatted
     end
 
@@ -90,6 +94,7 @@ module Imports
       end.compact_blank
     end
 
+    # we create an array with all the relation between recipes and ingredients for bulk insert
     def ingredients_recipes_to_insert
       recipes_to_ingredients.each_with_object([]) do |(recipe_title, ingredient_names), array|
         ingredient_names.each do |ingredient_name|
@@ -101,12 +106,14 @@ module Imports
       end
     end
 
+    # we store the ingredients in a hash "name => id" for fast access
     def ingredients_name_to_id
       @ingredients_name_to_id ||= inserted_ingredients.each_with_object({}) do |ingredient, hash|
         hash[ingredient['name']] = ingredient['id']
       end
     end
 
+    # we store the recipes in a hash "title => id" for fast access
     def recipes_title_to_id
       @recipes_title_to_id ||= inserted_recipes.each_with_object({}) do |recipe, hash|
         hash[recipe['title']] = recipe['id']
