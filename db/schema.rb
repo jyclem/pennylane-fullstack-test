@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_16_092705) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_06_102929) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
@@ -20,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_092705) do
   create_table "ingredients", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_ingredients_on_name", unique: true
+    t.index ["name"], name: "index_ingredients_on_name_gin_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "ingredients_recipes", id: false, force: :cascade do |t|
